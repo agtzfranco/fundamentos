@@ -1,0 +1,127 @@
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+.contenedor {
+    display: grid;
+    gap: 10px;
+    grid-template:
+        "header" auto
+        "navbar" auto
+        "main" auto
+        "footer" auto /
+        1fr;
+    background-color: white;
+    padding: 10px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.contenedor > * {
+    padding: 10px;
+}
+
+.header {
+    grid-area: header;
+    text-align: left;
+    padding: 20px 10px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+.header p {
+    margin: 5px 0 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.navbar {
+    grid-area: navbar;
+    background-color: #20212e;
+    text-align: left;
+    padding: 15px 10px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.article {
+    grid-area: main;
+    background-color: #f5f5f5;
+    text-align: left;
+    padding: 20px;
+}
+
+.article h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.imagen-derecha {
+    float: right;
+    margin: 0 0 20px 25px;
+    width: 280px;
+    max-width: 45%;
+    height: auto;
+    border-radius: 8px;
+    shape-outside: margin-box;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.article::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.footer {
+    grid-area: footer;
+    background-color: rgb(8, 8, 8);
+    color: white;
+    text-align: left;
+    padding: 15px 10px;
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 10px 5px;
+        grid-template:
+            "header" auto
+            "navbar" auto
+            "main" auto
+            "footer" auto /
+            100%;
+    }
+    
+    .imagen-derecha {
+        float: none;
+        width: 100%;
+        max-width: 350px;
+        margin: 0 auto 20px;
+        display: block;
+    }
+    
+    .navbar a {
+        display: inline-block;
+        margin: 0 15px 5px 0;
+    }
+}
