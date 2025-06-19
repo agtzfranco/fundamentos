@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUMAR DOS NUMEROS</title>
+</head>
+<body>
+    <H1>sumar dos numeros enteros</H1>
+    <form action="" id="suma-form">
+        <label for="num1">Número 1</label>
+        <input type="number" id="num1" name="num1"><br><br>
+
+        <label for="num2">Número 2</label>
+        <input type="number" id="num2" name="num2"><br><br>
+
+        <button type="button" onclick="sumarNumeros()">Sumar</button>
+        <br><br>
+        <p id="resultado">Resultado: </p>
+    </form>
+    <script>
+        function sumarNumeros() {
+            //Obtener los valores de los campos de entrada
+            var num1 = parseFloat(document.getElementById("num1").value);
+            var num2 = parseFloat(document.getElementById("num2").value);
+
+            //Verificar si los valores son númericos
+            if (isNaN(num1) / isNaN(num2)) {
+                document.getElementById("resultado").textContent = "Por favor, ingrese números validos.";
+                return;
+            }
+
+            //Realizar la suma
+            var suma = num1 + num2;
+
+            //Mostrar el resultado
+            document.getElementById("resultado").textContent = "Resultado: " + suma;
+        }
+    </script>
+</body>
+</html>
