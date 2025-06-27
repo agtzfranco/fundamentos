@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Datos - METCON</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="logo.png" alt="METCON Logo" class="logo">
+        </div>
+    </div>
+    
+    <main>
+        <h1>Registro de Datos</h1>  
+        <form id="registroForm">
+            <div class="form-group">
+                <label for="lclave">Clave</label>
+                <input type="number" id="lclave" name="clave" placeholder="Clave de empleado.." min="1">
+                <i class="fas fa-check-circle input-icon" id="clave-icon"></i>
+                <div class="error-message" id="clave-error">La clave debe ser un número positivo mayor a cero</div>
+            </div>
+
+            <div class="form-group">
+                <label for="fnom">Nombre</label>
+                <input type="text" id="fnom" name="nombre" placeholder="Escriba su nombre..">
+                <i class="fas fa-check-circle input-icon" id="nombre-icon"></i>
+                <div class="error-message" id="nombre-error">Este campo es obligatorio</div>
+            </div>
+
+            <div class="form-group">
+                <label for="lappat">Apellido Paterno</label>
+                <input type="text" id="lappat" name="appat" placeholder="Apellido paterno..">
+                <i class="fas fa-check-circle input-icon" id="appat-icon"></i>
+                <div class="error-message" id="appat-error">Este campo es obligatorio</div>
+            </div>
+
+            <div class="form-group">
+                <label for="lapmat">Apellido Materno</label>
+                <input type="text" id="lapmat" name="apmat" placeholder="Apellido materno..">
+                <i class="fas fa-check-circle input-icon" id="apmat-icon"></i>
+                <div class="error-message" id="apmat-error">Este campo es obligatorio</div>
+            </div>
+            
+            <input type="submit" value="Enviar Datos">
+        </form>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registroForm');
+            const camposTexto = document.querySelectorAll('input[type="text"]');
+            const claveInput = document.getElementById('lclave');
+
+            camposTexto.forEach(campo => {
+                campo.addEventListener('input', function() {
+                    this.value = this.value.toUpperCase();
+                });
+                
+                campo.addEventListener('blur', validarCampoTexto);
+            });
+
+            claveInput.addEventListener('input', validarCampoNumerico);
+            claveInput.addEventListener('blur', validarCampoNumerico);
+            
+            claveInput.addEventListener('keydown', function(e) {
+                if ([69, 189, 190].includes(e.keyCode)) { 
+                    e.preventDefault();
+                }
+            });
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let formularioValido = true;
+                
+                if (!validarCampoNumerico(claveInput)) formularioValido = false;
+                
+                camposTexto.forEach(campo => {
+                    if (!validarCampoTexto(campo)) formularioValido = false;
+                });
+                
+                if (formularioValido) {
+                    alert('Formulario enviado correctamente');
+                    form.reset();
+                    resetearValidaciones();
+                } else {
+                    alert('Por favor complete todos los campos correctamente');
+                }
+            });
+            
+            function validarCampoTexto(campo) {
+                const elemento = campo.target || campo;
+                const grupo = elemento.parentElement;
+                const error = document.getElementById(`${elemento.name}-error`);
+                const icono = document.getElementById(`${elemento.name}-icon`);
+                
+                if (!elemento.value.trim()) {
+                    mostrarError(grupo, error, icono);
+                    return false;
+                }
+                mostrarValido(grupo, error, icono);
+                return true;
+            }
+            
+            function validarCampoNumerico(campo) {
+                const elemento = campo.target || campo;
+                const grupo = elemento.parentElement;
+                const error = document.getElementById(`${elemento.name}-error`);
+                const icono = document.getElementById(`${elemento.name}-icon`);
+                const valor = parseFloat(elemento.value);
+                
+                if (!elemento.value || isNaN(valor)) {
+                    error.textContent = 'Este campo es obligatorio';
+                    mostrarError(grupo, error, icono);
+                    return false;
+                } else if (valor <= 0) {
+                    error.textContent = 'Debe ser mayor a cero';
+                    mostrarError(grupo, error, icono);
+                    return false;
+                }
+                mostrarValido(grupo, error, icono);
+                return true;
+            }
+            
+            function mostrarError(grupo, error, icono) {
+                error.style.display = 'block';
+                if (icono) icono.style.display = 'none';
+                grupo.classList.remove('valid');
+                grupo.classList.add('invalid');
+            }
+            
+            function mostrarValido(grupo, error, icono) {
+                error.style.display = 'none';
+                if (icono) icono.style.display = 'block';
+                grupo.classList.remove('invalid');
+                grupo.classList.add('valid');
+            }
+            
+            function resetearValidaciones() {
+                document.querySelectorAll('.form-group').forEach(grupo => {
+                    grupo.classList.remove('valid', 'invalid');
+                });
+                document.querySelectorAll('.input-icon').forEach(icono => {
+                    icono.style.display = 'none';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
