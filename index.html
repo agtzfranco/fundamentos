@@ -10,7 +10,7 @@
 
         </div>
         <script>
-            /*lista=[ {
+            lista=[ {
                 "nombre": "Juan Pérez",
                 "edad": 30,
                 "ciudad": "Monterrey"
@@ -26,14 +26,14 @@
                 "ciudad": "Ciudad de México"
                 }
             ]
-            localStorage.setItem("datos", JSON.stringify(lista));*/
-            /*lst=localStorage.getItem("datos");*/
+            localStorage.setItem("datos", JSON.stringify(lista));
+            lst=localStorage.getItem("datos");
             lst=JSON.parse(localStorage.getItem("datos"))
             console.log(typeof(lst));
             lst.forEach(element=>{
                 let elements=document.getElementById("listado");
                 let div=document.createElement("div");
-                div.innerHTML=element.nombre + " "+element.edad;
+                div.innerHTML=element.nombre + " - " + element.edad + " - " + element.ciudad;
                 elements.appendChild(div);
             });
         </script>
