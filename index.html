@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title> 
+    </head>
+    <body>
+        <div id="listado">
+
+        </div>
+        <script>
+            /*lista=[ {
+                "nombre": "Juan Pérez",
+                "edad": 30,
+                "ciudad": "Monterrey"
+                },
+                {
+                "nombre": "María García",
+                "edad": 25,
+                "ciudad": "Guadalajara"
+                },
+                {
+                "nombre": "Carlos López",
+                "edad": 35,
+                "ciudad": "Ciudad de México"
+                }
+            ]
+            localStorage.setItem("datos", JSON.stringify(lista));*/
+            /*lst=localStorage.getItem("datos");*/
+            lst=JSON.parse(localStorage.getItem("datos"))
+            console.log(typeof(lst));
+            lst.forEach(element=>{
+                let elements=document.getElementById("listado");
+                let div=document.createElement("div");
+                div.innerHTML=element.nombre + " "+element.edad;
+                elements.appendChild(div);
+            });
+        </script>
+    </body>
+</html>
